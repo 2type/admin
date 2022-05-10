@@ -470,19 +470,14 @@ db.advertisingRule.find({
 
 ta-input-fen 在用户输入时使用2位数浮点数(元),保存数据时使用整数(分).
 
-ta-input-fen 底层使用 [el-input-number](https://element.eleme.io/#/zh-CN/component/input-number), 
-你可以在 ta-input-fen 上配置 el-inpyt-number 的所有属性,例如 `step` :
-
 ```html
-<ta-input-yuan v-model="form.amount" :min="0" :step="100"></ta-input-yuan>
+<ta-input-fen :min="0" v-model="form.amount" :step="1"></ta-input-fen>元
+<span v-if="form.amount">（{{form.amount}}分）</span>
 ```
 
-> 有时后端需要前端将金额提交为整数,而不是浮点数
+> ta-input-fen 底层使用 [el-input-number](https://element.eleme.io/#/zh-CN/component/input-number), 
+> 你可以在 ta-input-fen 上配置 el-input-number 的所有属性
 
-
-```html
-<ta-input-fen v-model="form.amount"></ta-input-fen>
-```
 ### element-ui
 
 2type/admin 中已经集成了 element-ui 可直接使用无需引用
