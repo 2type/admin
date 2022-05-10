@@ -30,11 +30,9 @@
             <el-form-item label="地区限制" >
                 <ta-lbs-limit v-model="form.area"></ta-lbs-limit>
             </el-form-item>
-            <el-form-item label="金额(单位分)" >
-                <ta-input-fen :min="0" v-model="form.amount" :step="100"></ta-input-fen>
-            </el-form-item>
-            <el-form-item>
-                {{form.amount}}
+            <el-form-item label="金额" >
+                <ta-input-fen :min="0" v-model="form.amount" :step="1"></ta-input-fen>元
+                <span v-if="form.amount">（{{form.amount}}分）</span>
             </el-form-item>
             <el-form-item label="编辑器" >
                 <ta-editor v-model="form.content" photo="/admin/upload/photo" > ></ta-editor>
