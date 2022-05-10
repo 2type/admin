@@ -7,7 +7,7 @@
                 <el-input v-model="form.title"></el-input>
             </el-form-item>
             <el-form-item label="类型" >
-                <el-select v-model="form.type">
+                <el-select v-model="form.type" :disabled="formKind == 'update'" >
                     <!-- _enum().skuType 在 project.js 中配置 -->
                     <el-option v-for="(item, key) in _enum().skuType"  :key="item.key" :value="item.value" :label="item.label"></el-option>
                 </el-select>

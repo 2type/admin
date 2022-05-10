@@ -720,7 +720,17 @@ new Vue({
 })
 ```
 
-### _formKindLabel()
+### formKind
+
+在创建和编辑页面需要配置  `formKind` ,值可以是`"create"` 或 `"update"`. 
+
+可以使用 `:disabled="formKind == 'update'"` 让某些组件在编辑页面中无法编辑
+
+```html
+<el-select v-model="form.type" :disabled="formKind == 'update'" >
+```
+
+#### _formKindLabel()
 
 返回 formKind 对应的中文
 
@@ -975,6 +985,32 @@ TA.m._enum = function () {
 }
 ```
 
+```js
+// project.auth.js 中配置各种 enum
+TA.enum.skuType = [
+    {
+        key: 'digit',
+        value: 1,
+        label: '虚拟',
+    },
+    {
+        key: 'object',
+        value: 2,
+        label: '实物',
+    },
+]
+```
+
+`_enum()` 最常用的场景是渲染 select
+
+```html
+<el-select v-model="form.type" :disabled="formKind == 'update'" >
+    <!-- _enum().skuType 在 project.js 中配置 -->
+    <el-option v-for="(item, key) in _enum().skuType"  :key="item.key" :value="item.value" :label="item.label"></el-option>
+</el-select>
+```
+
+
 ## _find(searchEnum, searchKey, searchValue)
 
 _find 可配置 enum 使用,例如 enum 配置如下:
@@ -1051,6 +1087,7 @@ _find(option.user, "userID", 2).userName // 李四
     </template>
 </el-table-column>
 ```
+
 
 ## mobile
 
