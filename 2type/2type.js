@@ -60,7 +60,7 @@ TA.m._open = function (url) {
 * */
 TA.m._isDemo = function() {
     return ['localhost', 'admin.2type.cn'].some(function (item){
-        return item == location.host
+        return item == location.hostname
     })
 }
 /*
@@ -130,7 +130,7 @@ TA.m._req = function (config, passCallback, failCallback, always) {
         if (!passCallback) {
             passCallback = TA.hook.req.passCallback
         }
-        TA.hook.req.handleError(res, passCallback, failCallback)
+        TA.hook._req.handleError(res, passCallback, failCallback)
         always()
     }).catch(function (err) {
         loading.close()
