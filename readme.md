@@ -819,6 +819,22 @@ TA.m._req({
 }, function alwaysCallback() {
     
 })
+
+TA.m._req({
+    $loading: false, // 可以通过 $loading: false  取消 loading 遮罩层
+    method:"post",
+    url: vm.url_mobile_home(),
+    data:{
+        name:"nimo",
+        age:18
+    }
+}, function passCallback (res) {
+    console.log(res)
+}, function failCallback() {
+
+}, function alwaysCallback() {
+
+})
 ```
 
 config 参数是 [axios](https://axios-http.com/zh/docs/api_intro) 的参数. 

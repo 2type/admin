@@ -130,7 +130,7 @@ TA.m._req = function (config, passCallback, failCallback, always) {
         if (!passCallback) {
             passCallback = TA.hook.req.passCallback
         }
-        TA.hook._req.handleError(res, passCallback, failCallback)
+        TA.hook.req.handleError(res, passCallback, failCallback)
         always()
     }).catch(function (err) {
         loading.close()
