@@ -14,7 +14,59 @@ window.TA = {
     enum: {},
     nav:{},
     hook: {
-        req: {},
+        req: {
+            // 控制跳转到任意地址 {"jump":"https://github.com/2type/admin", "code":0, "message":""}
+            // 控制跳转到 TA.m {"jump":"url_home()", "code":0, "message":""}
+            // 控制跳转到 TA.m 带参数 {"jump":"url_demo_update()", "jumpArgs": [1], "code":0, "message":""}
+            // 成功提示 {"successMessage": "创建成功","code":0, "message":""}
+            passCallback: function (res) {
+                res.data = res.data || {}
+                if (res.data.jump) {
+                    if (res.data.jump == "refresh") {
+                        ELEMENT.Message({
+                            type: 'info',
+                            message: '即将刷新页面',
+                        })
+                        setTimeout(function () {
+                            location.reload()
+                        }, 1000)
+                    }
+                    if (/^url_/.test(res.data.jump) && /\(\)$/.test(res.data.jump)) {
+                        const urlKey = res.data.jump.replace("()", "")
+                        console.log("跳转至 TA.m." + urlKey)
+                        const urlfn = TA.m[urlKey]
+                        if (typeof urlfn == "undefined") {
+                            ELEMENT.Message({
+                                type: 'error',
+                                message: '跳转地址' + res.data.jump + "格式错误,未在 TA.m 中找到" + urlKey + "函数",
+                            })
+                            return
+                        }
+                        res.data.jump = urlfn.apply(TA.m, res.data.jumpArgs)
+                    }
+                    let page = res.data.jumpPageName || res.data.jump
+                    ELEMENT.Message({
+                        type: 'info',
+                        message: '即将跳转至: ' + page,
+                    })
+                    setTimeout(function () {
+                        TA.m._jump(res.data.jump)
+                    }, 1000)
+                } else {
+                    ELEMENT.Message({
+                        type: 'success',
+                        message: res.data.successMessage || '操作成功',
+                    })
+                }
+            },
+            // 错误消息弹窗 {"code":1, "message":"标题重复"}
+            failCallback: function (res) {
+                ELEMENT.Message({
+                    type: 'error',
+                    message: res.data.error.message,
+                })
+            },
+        },
         editor: {},
     },
 }
@@ -25,16 +77,7 @@ TA.qs = qs
 //  https://axios-http.com/zh/docs/api_intro
 TA.axios = axios
 
-document.onkeydown = function(event) {
-    if (event.key === 91) {
-        TA.DATA.commandKeyDown = true
-    }
-}
-document.onkeyup = function(event) {
-    if (event.key === 91) {
-        TA.DATA.commandKeyDown = false
-    }
-}
+
 
 /*
 * 跳转页面
@@ -212,6 +255,7 @@ TA.m._exportURL = function (path, data) {
 TA.m._enum = function () {
     return TA.enum
 }
+TA.enum = TA.enum || {}
 /*
 * 根据 source
 * @param {string|object} source - 数据源为字符串时查询  TA.enum[source],为数组时则查询数组

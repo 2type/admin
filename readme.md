@@ -854,16 +854,17 @@ config 参数是 [axios](https://axios-http.com/zh/docs/api_intro) 的参数.
 ```
 
 ```js
-TA.hook._req.handleError= function (res, passCallback, failCallback) {
+TA.hook.req.handleError = function (res, passCallback, failCallback) {
     // 数据格式补全
     res.data.error = res.data.error || {}
     res.data.error.code = res.data.error.code || 0
 
-    // 失败判断 (如果你的项目后端响应不是通过 res.data.error.code 判断,可自行修改)
+    // 失败判断
     if (res.data.error.code) {
         failCallback(res)
         return true
     } else {
+        res.data.error = undefined
         passCallback(res)
         return false
     }

@@ -13,7 +13,10 @@ export default {
     },
     methods: {
         navIndex(url) {
-            return url.replace(/\?.*$/, "")
+            if (url) {
+                return url.replace(/\?.*$/, "")
+            }
+            return  url
         },
         icon(path) {
             if (!/^(http)/.test(path)) {
