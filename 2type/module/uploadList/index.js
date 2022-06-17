@@ -13,13 +13,15 @@ export default {
         }
     },
     methods: {
-        addItem() {
+        newItem(data) {
             const vm = this
-            vm.$emit("input", vm.value.concat([{
-                id: "",
-                src: "",
-                filename:"",
-            }]))
+            vm.$emit("input", vm.value.concat(data))
+        },
+        removeItem(inputIndex){
+            const vm = this
+            vm.$emit("input", vm.value.filter(function (item, index){
+                return inputIndex !== index
+            }))
         },
         inputItem(inputIndex, value) {
             const vm = this

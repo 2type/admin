@@ -1,8 +1,8 @@
 export default `
 <div>
-    <div v-for="(item, index) in value" key="item" style="margin-bottom: 1em;">
-        <ta-upload :action="action" @input="inputItem(index, $event)"  :value="item"></ta-upload>    
+    <div v-for="(item, index) in value" key="index" style="margin-bottom: 1em;">
+        <ta-upload :action="action" @input="inputItem(index, $event)" @remove="removeItem(index)"  :value="item"></ta-upload>    
     </div>
-    <el-button type="primary" @click="addItem" icon="el-icon-circle-plus-outline"></el-button>
+    <ta-upload :action="action" @input="newItem" :value="{}" ></ta-upload>
 </div>
 `
