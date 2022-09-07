@@ -1,0 +1,137 @@
+[[extends "./layout/pc.html"]]
+[[block main()]]
+<ta-pc :header="header">
+    <ta-box title="地图统计">
+        <el-radio-group v-model="provinceDataType">
+            <el-radio-button label="uv">uv</el-radio-button>
+            <el-radio-button label="newAccount">新用户</el-radio-button>
+        </el-radio-group>
+        <h2 v-if="_isDemo()">点击江苏查看有数据的市级</h2>
+        <ta-china-map @click="clickChinaMap" :map-data="province" :value-key="provinceDataType" ></ta-china-map>
+        <h2  v-if="cityGeo" >市级</h2>
+        <ta-geo-map  v-if="cityGeo" @click="clickCityMap" :map-data="cityData" :geo="cityGeo" :value-key="provinceDataType" ></ta-geo-map>
+    </ta-box>
+</ta-pc>
+[[end]]
+[[block script()]]
+<script>
+    function _mockProvinceData () {
+        var uv =  parseInt(Math.random()*20000)
+        return {
+            uv: uv,
+            scan: uv*Math.random(),
+            newAccount: uv*Math.random(),
+        }
+    }
+    window.__RENDER_DATA = {
+        province: {
+            "999999": _mockProvinceData(),
+            "710000": _mockProvinceData(),
+            "130000": _mockProvinceData(),
+            "140000": _mockProvinceData(),
+            "150000": _mockProvinceData(),
+            "210000": _mockProvinceData(),
+            "220000": _mockProvinceData(),
+            "230000": _mockProvinceData(),
+            "320000": _mockProvinceData(),
+            "330000": _mockProvinceData(),
+            "340000": _mockProvinceData(),
+            "350000": _mockProvinceData(),
+            "360000": _mockProvinceData(),
+            "370000": _mockProvinceData(),
+            "410000": _mockProvinceData(),
+            "420000": _mockProvinceData(),
+            "430000": _mockProvinceData(),
+            "440000": _mockProvinceData(),
+            "450000": _mockProvinceData(),
+            "460000": _mockProvinceData(),
+            "510000": _mockProvinceData(),
+            "520000": _mockProvinceData(),
+            "530000": _mockProvinceData(),
+            "540000": _mockProvinceData(),
+            "610000": _mockProvinceData(),
+            "620000": _mockProvinceData(),
+            "630000": _mockProvinceData(),
+            "640000": _mockProvinceData(),
+            "650000": _mockProvinceData(),
+            "110000": _mockProvinceData(),
+            "120000": _mockProvinceData(),
+            "310000": _mockProvinceData(),
+            "500000": _mockProvinceData(),
+            "810000": _mockProvinceData(),
+            "820000": _mockProvinceData(),
+        }
+    }
+</script>
+<script type="module" >
+    import ChinaMap from "/public/2type/module/china-map/index.js"
+    Vue.component(ChinaMap.name, ChinaMap)
+    import GeoMap from "/public/2type/module/geo-map/index.js"
+    Vue.component(GeoMap.name, GeoMap)
+
+    const header = [
+        {
+            title: "首页",
+            url: "",
+        },
+    ]
+    const vm = new Vue({
+        components: {},
+        el: "#ta-app",
+        data: function () {
+            const out = {
+                ...__RENDER_DATA,
+                header: header,
+                provinceDataType: 'uv',
+                cityData: {},
+                cityGeo: false,
+            }
+            return out
+        },
+        mounted() {
+            const vm = this
+
+        },
+        methods: {
+            ...TA.m,
+            clickCityMap(data) {
+              console.log("clickCityMap", data)
+            },
+            clickChinaMap(data) {
+                console.log("clickChinaMap", data)
+                const vm = this
+                var loading = vm.$loading({})
+                TA.axios({
+                    method: 'get',
+                    url: '/admin/area_stat/city?adcode='+ data.id,
+                    responseType: 'json'
+                }).then(function (res) {
+                    vm.cityData = res.data.cities
+                    TA.axios({
+                        method: 'get',
+                        url: 'https://npm.2type.cn/echarts@4.9.0/map/json/province/'+ data.ename + '.json',
+                        responseType: 'json'
+                    }).then(function (res) {
+                        vm.cityGeo = res.data
+                        loading.close();
+                    }).catch(function (error) {
+                        console.error(error)
+                        alert("网络错误,请刷新重试(市地图)" + error)
+                        loading.close();
+                    })
+                }).catch(function (error) {
+                    console.error(error)
+                    alert("网络错误,请刷新重试(获取市数据)" + error)
+                    loading.close();
+                })
+
+            }
+        },
+        computed:{
+        }
+    })
+</script>
+<style>
+
+</style>
+[[end]]

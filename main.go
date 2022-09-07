@@ -44,7 +44,7 @@ func (j JetRender) Render(templatePath string, data interface{}, w http.Response
 	return t.Execute(w, nil, data)
 }
 
-type Any map[string]interface{}
+type any map[string]interface{}
 type UploadRes struct {
 	ID string `json:"id"`
 	Filename string `json:"filename"`
@@ -119,6 +119,29 @@ func main () {
 		Render: "home.html",
 	})
 	ms.URL(xhttp.Mock{
+    		Route:               xhttp.Route{xhttp.GET, "/admin/area_stat"},
+    		Render: "area_stat.html",
+    	})
+    ms.URL(xhttp.Mock{
+        Route:               xhttp.Route{xhttp.GET, "/admin/area_stat/city"},
+        Reply:               xhttp.MockReply{
+            "pass": any{
+                "cities": map[string]map[string]uint64{
+                    "320100": map[string]uint64{
+                        "uv": 100,
+                        "scan": 80,
+                        "newAccount": 20,
+                    },
+                    "320200": map[string]uint64{
+                        "uv": 40,
+                        "scan": 35,
+                        "newAccount": 30,
+                    },
+                },
+            },
+        },
+    })
+	ms.URL(xhttp.Mock{
 		Route:               xhttp.Route{xhttp.GET, "/admin/demo_list"},
 		Render: "demo_list.html",
 	})
@@ -126,7 +149,7 @@ func main () {
 		Route:               xhttp.Route{xhttp.GET, "/admin/demo_update"},
 		Render: "demo_form.html",
 		Reply:               xhttp.MockReply{
-			"pass": Any{
+			"pass": any{
 				"formKind": "update",
 			},
 		},
@@ -135,7 +158,7 @@ func main () {
 		Route:               xhttp.Route{xhttp.GET, "/admin/demo_create"},
 		Render: "demo_form.html",
 		Reply:               xhttp.MockReply{
-			"pass": Any{
+			"pass": any{
 				"formKind": "create",
 			},
 		},

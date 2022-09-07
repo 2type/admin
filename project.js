@@ -90,3 +90,6 @@ TA.m.url_captcha = function () {
 TA.m.url_home = function () {
     return "/admin/home"
 }
+TA.m.url_area_stat = function () {
+    return "/admin/area_stat"
+}

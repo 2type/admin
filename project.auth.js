@@ -58,6 +58,11 @@ TA.nav = {
             title: "首页",
         },
         {
+            url: TA.m.url_area_stat(),
+            icon: 'dusty-blue/rise',
+            title: "地图统计",
+        },
+        {
             icon: 'shopping',
             title: "演示",
             items: [
