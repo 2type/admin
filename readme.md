@@ -982,7 +982,7 @@ new Vue({
 
 某些页码除了要实现列表翻页还需要实现导出搜索结果,此时可以使用 `_export(search)` .
 它与 `_list(search)` 功能类似,区别在于会在新页面打开页面便于后端返回文件下载.
-并且 URL query json 参数中会包含 `"export"":true` , 后端可根据 export 参数判断是导出数据还是搜索分页
+并且 URL query json 参数中会包含 `"export":true` , 后端可根据 export 参数判断是导出数据还是搜索分页
 
 ```html
 <el-form-item>
