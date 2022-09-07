@@ -71,9 +71,19 @@ export default {
     methods: {
         geoName(geo) {
             var name = "ta-geo-map-"
+            var adcode = "random:" + String(Math.random())
             if (geo.features.length !== 0) {
-                name += geo.features[0].id
+                if (geo.features[0].adcode) {
+                    adcode = geo.features[0].adcode
+                } else if (geo.features[0].id) {
+                    adcode = geo.features[0].id
+                } else if (geo.features[0].properties && geo.features[0].properties.adcode) {
+                    adcode = geo.features[0].properties.adcode
+                } else if (geo.features[0].properties && geo.features[0].properties.id) {
+                    adcode = geo.features[0].properties.id
+                }
             }
+            name += adcode
             return name
         },
         registerMap(geo) {

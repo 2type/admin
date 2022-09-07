@@ -141,6 +141,25 @@ func main () {
             },
         },
     })
+    ms.URL(xhttp.Mock{
+        Route:               xhttp.Route{xhttp.GET, "/admin/area_stat/district"},
+        Reply:               xhttp.MockReply{
+            "pass": any{
+                "districts": map[string]map[string]uint64{
+                    "320116": map[string]uint64{
+                        "uv": 100,
+                        "scan": 80,
+                        "newAccount": 20,
+                    },
+                    "320111": map[string]uint64{
+                        "uv": 40,
+                        "scan": 35,
+                        "newAccount": 30,
+                    },
+                },
+            },
+        },
+    })
 	ms.URL(xhttp.Mock{
 		Route:               xhttp.Route{xhttp.GET, "/admin/demo_list"},
 		Render: "demo_list.html",

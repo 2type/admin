@@ -10,6 +10,8 @@
         <ta-china-map @click="clickChinaMap" :map-data="province" :value-key="provinceDataType" ></ta-china-map>
         <h2  v-if="cityGeo" >市级</h2>
         <ta-geo-map  v-if="cityGeo" @click="clickCityMap" :map-data="cityData" :geo="cityGeo" :value-key="provinceDataType" ></ta-geo-map>
+        <h2  v-if="districtGeo" >区县级</h2>
+        <ta-geo-map  v-if="districtGeo" @click="clickDistrictMap" :map-data="districtData" :geo="districtGeo" :value-key="provinceDataType" ></ta-geo-map>
     </ta-box>
 </ta-pc>
 [[end]]
@@ -68,7 +70,6 @@
     Vue.component(ChinaMap.name, ChinaMap)
     import GeoMap from "/public/2type/module/geo-map/index.js"
     Vue.component(GeoMap.name, GeoMap)
-
     const header = [
         {
             title: "首页",
@@ -85,6 +86,8 @@
                 provinceDataType: 'uv',
                 cityData: {},
                 cityGeo: false,
+                districtGeo: false,
+                districtData: {},
             }
             return out
         },
@@ -96,6 +99,31 @@
             ...TA.m,
             clickCityMap(data) {
               console.log("clickCityMap", data)
+                const vm = this
+                var loading = vm.$loading({})
+                TA.axios({
+                    method: 'get',
+                    url: '/admin/area_stat/district?adcode='+ data.id,
+                    responseType: 'json'
+                }).then(function (dataRes) {
+                    TA.axios({
+                        method: 'get',
+                        url: 'https://npm.2type.cn/@2type/geodata@0.0.1/china/json_v3/'+ data.id + '.json',
+                        responseType: 'json'
+                    }).then(function (geoRes) {
+                        vm.districtData = dataRes.data.districts
+                        vm.districtGeo = geoRes.data
+                        loading.close();
+                    }).catch(function (error) {
+                        console.error(error)
+                        alert("网络错误,请刷新重试(区县地图)" + error)
+                        loading.close();
+                    })
+                }).catch(function (error) {
+                    console.error(error)
+                    alert("网络错误,请刷新重试(获取区县数据)" + error)
+                    loading.close();
+                })
             },
             clickChinaMap(data) {
                 console.log("clickChinaMap", data)
@@ -105,14 +133,16 @@
                     method: 'get',
                     url: '/admin/area_stat/city?adcode='+ data.id,
                     responseType: 'json'
-                }).then(function (cityRes) {
+                }).then(function (dataRes) {
                     TA.axios({
                         method: 'get',
                         url: 'https://npm.2type.cn/echarts@4.9.0/map/json/province/'+ data.ename + '.json',
                         responseType: 'json'
                     }).then(function (geoRes) {
-                        vm.cityData = cityRes.data.cities
+                        vm.cityData = dataRes.data.cities
                         vm.cityGeo = geoRes.data
+                        vm.districtData = {}
+                        vm.districtGeo = null
                         loading.close();
                     }).catch(function (error) {
                         console.error(error)
@@ -124,7 +154,9 @@
                     alert("网络错误,请刷新重试(获取市数据)" + error)
                     loading.close();
                 })
-
+            },
+            clickDistrictMap(data) {
+                console.log("clickdistrictMap", data)
             }
         },
         computed:{
