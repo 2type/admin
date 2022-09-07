@@ -105,14 +105,14 @@
                     method: 'get',
                     url: '/admin/area_stat/city?adcode='+ data.id,
                     responseType: 'json'
-                }).then(function (res) {
-                    vm.cityData = res.data.cities
+                }).then(function (cityRes) {
                     TA.axios({
                         method: 'get',
                         url: 'https://npm.2type.cn/echarts@4.9.0/map/json/province/'+ data.ename + '.json',
                         responseType: 'json'
-                    }).then(function (res) {
-                        vm.cityGeo = res.data
+                    }).then(function (geoRes) {
+                        vm.cityData = cityRes.data.cities
+                        vm.cityGeo = geoRes.data
                         loading.close();
                     }).catch(function (error) {
                         console.error(error)
