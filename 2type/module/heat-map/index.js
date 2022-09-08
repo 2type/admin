@@ -22,7 +22,8 @@ export default {
             type: Object,
             default: function () {
                 return {
-                    zoom: 13,//设置地图缩放级别
+                    zoom: 13,
+                    scrollwheel: false,
                     baseMap: {
                         type: "vector",
                         features: ["base", "building3d", 'building2d', 'point', 'label'],
