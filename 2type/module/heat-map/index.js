@@ -23,7 +23,6 @@ export default {
             default: function () {
                 return {
                     zoom: 13,
-                    scrollwheel: false,
                     baseMap: {
                         type: "vector",
                         features: ["base", "building3d", 'building2d', 'point', 'label'],
@@ -33,7 +32,7 @@ export default {
         },
         heatOption: {
             type: Object,
-            defualt: function () {
+            default: function () {
                 return {
                     height: 0, // 峰值高度
                     gradientColor: { // 渐变颜色
@@ -84,7 +83,7 @@ export default {
             mapOption.center = vm.center
             vm.$map = new TMap.Map(vm.$refs.mapCanvans, mapOption);
             //初始化热力图并添加至map图层
-            var heatOption =  JSON.parse(JSON.stringify(vm.mapOption))
+            var heatOption =  JSON.parse(JSON.stringify(vm.heatOption))
             var counts = []
             vm.mapData.forEach(function (item) {
                 counts.push(item[2])
