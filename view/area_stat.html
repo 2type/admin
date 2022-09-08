@@ -12,6 +12,12 @@
         <ta-geo-map  v-if="cityGeo" @click="clickCityMap" :map-data="cityData" :geo="cityGeo" :value-key="provinceDataType" ></ta-geo-map>
         <h2  v-if="districtGeo" >区县级</h2>
         <ta-geo-map  v-if="districtGeo" @click="clickDistrictMap" :map-data="districtData" :geo="districtGeo" :value-key="provinceDataType" ></ta-geo-map>
+        <ta-heat-map v-if="heatMapApiKey && heatMapData" :map-data="heatMapData" :center="heatMapCenter"  :api-key="heatMapApiKey" ></ta-heat-map>
+        <p v-if="!heatMapApiKey" >
+            如果想使用热力图,请在 <a target="_blank" href="https://lbs.qq.com/webApi/visualizationApi/visualizationGuide/visualizationBasic">https://lbs.qq.com/webApi/visualizationApi/visualizationGuide/visualizationBasic</a>
+            获取 key 后通过
+            <code>/admin/area_stat?heat_map_api_key=你的key</code> 访问本页面
+        </p>
     </ta-box>
 </ta-pc>
 [[end]]
@@ -65,11 +71,39 @@
         }
     }
 </script>
+<script></script>
+<script>
+    location.search.replace(/^\?/, "").split("&").some(function (item) {
+        var arr = item.split("=");
+        var key = arr[0]
+        var value = arr[1]
+        if (key == 'heat_map_api_key' && value){
+            var scriptHTML = [
+                `<`,
+                `script charset="utf-8"`,
+                `src="https://map.qq.com/api/gljs?v=1.exp&key=`,
+                key,
+                `&libraries=visualization"`,
+                `>`,
+                `<`,
+                "/script",
+                `>`,
+            ].join("")
+            document.write(scriptHTML)
+        }
+    })
+</script>
 <script type="module" >
     import ChinaMap from "/public/2type/module/china-map/index.js"
     Vue.component(ChinaMap.name, ChinaMap)
     import GeoMap from "/public/2type/module/geo-map/index.js"
     Vue.component(GeoMap.name, GeoMap)
+
+    import HeatMap from "/public/2type/module/heat-map/index.js"
+    Vue.component(HeatMap.name, HeatMap)
+
+    var heatMapApiKey = TA.qs.parse(location.search).heat_map_api_key
+    console.log("heatMapApiKey", heatMapApiKey)
     const header = [
         {
             title: "首页",
@@ -88,12 +122,14 @@
                 cityGeo: false,
                 districtGeo: false,
                 districtData: {},
+                heatMapApiKey: heatMapApiKey,
+                heatMapData: false,
+                heatMapCenter: {}
             }
             return out
         },
         mounted() {
             const vm = this
-
         },
         methods: {
             ...TA.m,
@@ -156,7 +192,37 @@
                 })
             },
             clickDistrictMap(data) {
+                const vm = this
                 console.log("clickdistrictMap", data)
+                // 模拟请求
+                var loading = vm.$loading({})
+                setTimeout(function () {
+                    vm.heatMapCenter = {
+                        height: 0,
+                        lng: data.geoData.properties.center[0],
+                        lat: data.geoData.properties.center[1],
+                    }
+                    var newHeatMapData = []
+                    // 模拟数据
+                    for(var i=0;i<100;i++) {
+                        var random = function () {
+                            var v = (Math.random()/10)
+                            if (Math.random()>0.5) {
+                                v = -v
+                            }
+                            return v
+                        }
+
+
+                        newHeatMapData.push([
+                            vm.heatMapCenter.lng + random(),
+                            vm.heatMapCenter.lat + random(),
+                            parseInt(Math.random()*10000, 10)
+                        ])
+                    }
+                    vm.heatMapData = newHeatMapData
+                    loading.close()
+                }, 100)
             }
         },
         computed:{

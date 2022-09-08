@@ -45,7 +45,7 @@ export default {
         },
         mapData() {
             const vm = this
-            console.log("ta-geo-map:watch dataMap change:render", JSON.parse(JSON.stringify(vm.mapData)))
+            console.log("ta-geo-map:watch mapData change:render", JSON.parse(JSON.stringify(vm.mapData)))
             vm.render()
         },
         valueKey() {
@@ -60,7 +60,14 @@ export default {
         vm.$chart = echarts.init(vm.$refs.chartsCanvas);
         vm.render()
         vm.$chart.on("click", function(params) {
-            vm.$emit("click", params.data)
+            var data = params.data
+            vm.geo.features.some(function (item) {
+                if (item.properties.adcode == data.id) {
+                    data.geoData = item
+                    return true
+                }
+            })
+            vm.$emit("click", data)
         });
     },
     beforeDestroy: function(){
