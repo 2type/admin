@@ -103,12 +103,12 @@ export default {
             vm.geo.features.forEach(function (item) {
                 seriesData.push({
                     name: item.properties.name,
-                    id: item.id,
+                    id: item.id || item.properties.adcode,
                 })
             })
             var nameAdcodeHash = {}
             vm.geo.features.forEach(function (item) {
-                nameAdcodeHash[item.properties.name] = item.id
+                nameAdcodeHash[item.properties.name] = item.id || item.properties.adcode
             })
             seriesData = seriesData.map(function (item) {
                 var adcode = nameAdcodeHash[item.name]
