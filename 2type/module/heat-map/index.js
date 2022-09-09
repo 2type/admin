@@ -7,9 +7,6 @@ export default {
             type: Array,
             required:true,
         },
-        apiKey: {
-            type:String,
-        },
         center: {
           type: Object,
           required:true,

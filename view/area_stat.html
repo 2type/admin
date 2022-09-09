@@ -12,7 +12,7 @@
         <ta-geo-map  v-if="cityGeo" @click="clickCityMap" :map-data="cityData" :geo="cityGeo" :value-key="provinceDataType" ></ta-geo-map>
         <h2  v-if="districtGeo" >区县级</h2>
         <ta-geo-map  v-if="districtGeo" @click="clickDistrictMap" :map-data="districtData" :geo="districtGeo" :value-key="provinceDataType" ></ta-geo-map>
-        <ta-heat-map v-if="heatMapApiKey && heatMapData" :map-data="heatMapData" :center="heatMapCenter"  :api-key="heatMapApiKey" ></ta-heat-map>
+        <ta-heat-map v-if="heatMapApiKey && heatMapData" :map-data="heatMapData" :center="heatMapCenter" ></ta-heat-map>
         <p v-if="!heatMapApiKey" >
             如果想使用热力图,请在 <a target="_blank" href="https://lbs.qq.com/webApi/visualizationApi/visualizationGuide/visualizationBasic">https://lbs.qq.com/webApi/visualizationApi/visualizationGuide/visualizationBasic</a>
             获取 key 后通过
