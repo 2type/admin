@@ -57,7 +57,7 @@
             <el-table-column prop="title" label="标题"></el-table-column>
             <el-table-column label="类型">
                 <template slot-scope="scope">
-                    {{_find("skuType", "value", scope.row.type).label}}
+                    {{_find(_enum().skuType, "value", scope.row.type).label}}
                 </template>
             </el-table-column>
             <el-table-column label="操作">
@@ -67,15 +67,16 @@
             </el-table-column>
         </el-table>
         <el-pagination
-                :total="total"
-                :current-page="Number(search.page)"
-                @current-change="_list(search, $event)"
-                :page-size="10"
-                style="text-align: center;padding:1em;"
-                background
-                layout="prev, pager, next"
-        >
-        </el-pagination>
+            :total="total"
+            :current-page="Number(search.page)"
+            @current-change="_list(search, $event, null)"
+            @size-change="_list(search, null, $event)"
+            :page-size="Number(search.perPage) || 10"
+            style="text-align: center;padding:1em;"
+            background
+            layout="prev, pager, next, sizes"
+    >
+    </el-pagination>
     </ta-box>
 </ta-pc>
 [[end]]
@@ -142,6 +143,7 @@
                 search:TA.m._readSearch(),
                 header: header,
             }
+            console.log("vue data:", JSON.parse(JSON.stringify(out)))
             return out
         },
         created() {

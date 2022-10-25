@@ -212,8 +212,8 @@ TA.m._submitURL = function(url, data, passCallback, failCallback) {
 * @param {object} data - 数据
 * @param {number} page - 翻页,不传则为搜索第一页,传则为翻页
 * */
-TA.m._list = function (data, page) {
-    TA.m._listURL(location.pathname, data, page)
+TA.m._list = function (data, page,  perPage) {
+    TA.m._listURL(location.pathname, data, page, perPage)
 }
 /*
 * 列表跳转专用(指定 path)
@@ -221,11 +221,14 @@ TA.m._list = function (data, page) {
 * @param {object} data - 数据
 * @param {number} page - 翻页,不传则为搜索第一页,传则为翻页
 * */
-TA.m._listURL = function(path, data, page) {
+TA.m._listURL = function(path, data, page, perPage) {
     if (page) {
         data['page'] = page
     } else {
         data['page'] = 1
+    }
+    if (perPage) {
+        data['perPage'] = perPage
     }
     TA.m._jump(path + "?" + TA.qs.stringify({
         json: JSON.stringify(data)
@@ -264,6 +267,7 @@ TA.enum = TA.enum || {}
 * */
 TA.m._find = function (source, key, value) {
     let data = {}
+    // 向前兼容
     if (typeof source == "string") {
         if (!data) {
             console.log(`_find(${source}, ${key}, ${value}) TA.m.${source} can not found`)
@@ -282,6 +286,22 @@ TA.m._find = function (source, key, value) {
         }
     })
     return out
+}
+TA.m._objectIDToDate = function(objectID) {
+    if (!objectID) {
+        return null
+    }
+    return new Date(parseInt(objectID.substring(0, 8), 16) * 1000);
+}
+TA.m._dateFormat = function(date, layout) {
+    if (!layout) {
+        layout = 'YYYY-MM-DD HH:mm:ss'
+    }
+    return TA.dayjs(date).format(layout)
+}
+TA.m._encodeJSONQuery=function(data) {
+    let json = JSON.stringify({data})
+    return encodeURIComponent(json)
 }
 import Upload from "./module/upload/index.js"
 Vue.component(Upload.name, Upload)

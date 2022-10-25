@@ -485,6 +485,8 @@ ta-input-fen 在用户输入时使用2位数浮点数(元),保存数据时使用
 1. [element table](https://element.eleme.io/2.15/#/zh-CN/component/table)
 1. [element form](https://element.eleme.io/2.15/#/zh-CN/component/form)
 
+<!--
+
 # vant
 
 2type/admin 的移动端模式使用了
@@ -492,6 +494,7 @@ ta-input-fen 在用户输入时使用2位数浮点数(元),保存数据时使用
 1. [vant v2](https://youzan.github.io/vant/v2/#/zh-CN/)
 2. [vue router v3](https://v3.router.vuejs.org/zh/guide/#javascript) *非必须了解*
 3. [vuex v3](https://v3.vuex.vuejs.org/zh) *非必须了解*
+-->
 
 ### 图表
 
@@ -547,6 +550,7 @@ mounted() {
     }, 1000)
     // 一定要延迟渲染
     setTimeout(function () {
+        // 使用前请确保 <script type="module" > 起始处引用了
         // import g2 from 'https://esm.2type.cn/@antv/g2@v4.1.27/dist/g2.min.js'
         const data = [{"Data": "2017-01", "sales": 1145}, {"Data": "2017-02", "sales": 1244}, {"Data": "2018-03", "sales": 1745 }, {"Data": "2018-04", "sales": 1680}, {"Data": "2018-05", "sales": 1802}, {"Data": "2018-06", "sales": 1697 }, {"Data": "2018-07", "sales": 1583}, {"Data": "2018-08", "sales": 1556}, {"Data": "2018-09", "sales": 1824 }, {"Data": "2018-10", "sales": 2398}, {"Data": "2018-11", "sales": 2278}, {"Data": "2018-12", "sales": 2495 }]
         const chart = new Chart({
@@ -681,13 +685,13 @@ TA.m.url_demo_update = function (id) {
 
 ```js
 TA.m.url_demo_list = function () {
-    let json = JSON.stringify({
-    daterange: [
-        TA.dayjs().subtract(6, 'day').format("YYYY-MM-DD"),
-        TA.dayjs().format("YYYY-MM-DD")
-    ]
+    var value = TA.m._encodeJSONQuery({
+        daterange: [
+            TA.dayjs().subtract(6, 'day').format("YYYY-MM-DD"),
+            TA.dayjs().format("YYYY-MM-DD")
+        ]
     })
-    return "/admin/demo_list?json=" + encodeURIComponent(json)
+    return "/admin/demo_list?json=" + value
 }
 ```
 
@@ -943,13 +947,13 @@ new Vue({
 
 与 `TA.m._submit` 相同,区别是可以通过 url 配置请求地址
 
-## _list(search, page)
+## _list(search, page, perPage)
 
 > 2type/admin 对常见的列表分页进行了封装,配合 `_list` 可以非常方便的实现列表分页.
 
 列表跳转专用(请求当前页)
 
-`_list(search, page)` 会获取 data 跳转至 `path?json=data` ,后端获取 URL query 中的 json 作为查询条件, query 中会包含 page(页码).   
+`_list(search, page, perPage)` 会获取 data 跳转至 `path?json=data` ,后端获取 URL query 中的 json 作为查询条件, query 中会包含 page(页码).   
 
 **按条件查询**
 
@@ -961,13 +965,14 @@ new Vue({
 
 ```html
 <el-pagination
-        @current-change="_list(search, $event)"
         :total="total"
         :current-page="Number(search.page)"
-        :page-size="10"
+        @current-change="_list(search, $event, null)"
+        @size-change="_list(search, null, $event)"
+        :page-size="Number(search.perPage) || 10"
         style="text-align: center;padding:1em;"
         background
-        layout="prev, pager, next"
+        layout="prev, pager, next, sizes"
 >
 </el-pagination>
 ```
@@ -1047,28 +1052,31 @@ TA.enum.skuType = [
 ]
 ```
 
-```js
-_find("skuType", "value", 2).label // 实物
-_find("skuType", "value", 2).key // object
-_find("skuType", "value", 2).id // 2
+通过 `_enum()` 获取获取到 `TA.enum`
 
-_find("skuType", "key", "object").label // 实物
-_find("skuType", "key", 'object').key // object
-_find("skuType", "key", 'object').id // 2
+```js
+_find(_enum().skuType, "value", 2).label // 实物
+_find(_enum().skuType, "value", 2).key // object
+_find(_enum().skuType, "value", 2).id // 2
+
+_find(_enum().skuType, "key", "object").label // 实物
+_find(_enum().skuType, "key", 'object').key // object
+_find(_enum().skuType, "key", 'object').id // 2
 ```
 
 
 **在 el-table 中将 `1` `2` 转换为`"虚拟""` `"实物"`**
 
-`_find("skuType", "value", scope.row.type).label`
+`_find(_enum().skuType, "value", scope.row.type).label`
 
 ```html
 <el-table-column label="类型">
     <template slot-scope="scope">
-        {{_find("skuType", "value", scope.row.type).label}}
+        {{_find(_enum().skuType, "value", scope.row.type).label}}
     </template>
 </el-table-column>
 ```
+你也可以直接使用 vue data 中定义的数据
 
 ```js
 {
@@ -1092,7 +1100,6 @@ _find(option.user, "userID", 1).userName // 张三
 _find(option.user, "userID", 2).userName // 李四
 ```
 
-
 **在 el-table 中将 `1` `2` 转换为`"张三""` `"李四"`**
 
 `_find(option.user, "userID", scope.row.userID).userName`
@@ -1105,9 +1112,43 @@ _find(option.user, "userID", 2).userName // 李四
 </el-table-column>
 ```
 
+## _encodeJSONQuery(data)
+将对象转换为 URL query 值
 
+```shell
+/list?json={{_encodeJSONQuery({'name':'2type'})}}
+# /list?json=%7B%22data%22%3A%7B%22name%22%3A%222type%22%7D%7D
+```
+
+## _objectIDToDate(oid)
+
+MongoDB ObjectID 转换为时间
+
+```shell script
+{{_objectIDToDate("507f1f77bcf86cd799439011")}}
+# Thu Oct 18 2012 05:13:27 GMT+0800 (中国标准时间)
+```
+
+# _dateFormat(date, layout)
+
+Date 对象或时间字符串格式化
+
+```shell script
+{{_dateFormat("Thu Oct 18 2012 05:13:27 GMT+0800 (中国标准时间)")}}
+# 2012-10-18 05:13:27
+```
+
+配合_objectIDToDate使用可将ObjectID转换为格式化后的日期字符串
+
+```shell script
+{{_dateFormat(_objectIDToDate("507f1f77bcf86cd799439011"))}}
+# 2012-10-18 05:13:27
+```
+
+<!-- 
 ## mobile
 
 你还可以使用 2type/admin 快速开发移动端,这需要你有一点的前端基础.
 
 可参考 [view/mobile.html](./view/mobile.html)
+-->

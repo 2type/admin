@@ -19,13 +19,13 @@ TA.m.url_logout = function () {
     return "/admin/logout"
 }
 TA.m.url_demo_list = function () {
-    let json = JSON.stringify({
+    var value = TA.m._encodeJSONQuery({
         daterange: [
             TA.dayjs().subtract(6, 'day').format("YYYY-MM-DD"),
             TA.dayjs().format("YYYY-MM-DD")
         ]
     })
-    return "/admin/demo_list?json=" + encodeURIComponent(json)
+    return "/admin/demo_list?json=" + value
 }
 TA.m.url_demo_update = function (id) {
     return "/admin/demo_update?id=" + id
@@ -36,6 +36,7 @@ TA.m.url_demo_create = function () {
 TA.m.url_mobile_home = function () {
     return "/mobile/home"
 }
+
 
 TA.nav = {
     // 头部
