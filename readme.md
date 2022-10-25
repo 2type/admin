@@ -1,16 +1,11 @@
 # 2type/admin
 
-首页
-[![](./2type/demo/home.jpeg)](http://121.36.160.254:4122/admin/home)
 
-登录
-[![](./2type/demo/login.jpeg)](http://121.36.160.254:4122/admin/login)
-
-列表
-[![](./2type/demo/demo_list.jpeg)](http://121.36.160.254:4122/admin/demo_list)
-
-编辑
-[![](./2type/demo/demo_update.jpeg)](http://121.36.160.254:4122/admin/demo_update)
+## 示例
+1. [首页](http://admin.2type.cn/admin/home)
+2. [登录](http://admin.2type.cn/admin/login)
+3. [列表](http://admin.2type.cn/admin/demo_list)
+4. [编辑)](http://admin.2type.cn/admin/demo_update)
 
 
 
@@ -18,8 +13,12 @@
 
 **无需编译:**
 
-2type/admin 可以作为管理后台框架,也可以作为前端快速开发的原型框架.无需 node webpack gulp 构建工具,真正意义的开箱即用,能降低复杂度.
-对后端友好,不是很熟悉前端的后端只需要复制粘贴即可完成管理后台的前端开发,复杂的需求让前端在 2type/admin 的框架之上开发即可.
+2type/admin 可以作为**管理后台框架**,也可以作为前端快速开发的**原型框架**.
+
+**无需 node webpack gulp 构建工具**,真正意义的**下载即用**,能降低复杂度.
+
+对后端友好,不是很熟悉前端的后端只需要复制粘贴即可完成管理后台的前端开发.
+复杂的需求让前端在 2type/admin 的框架之上开发即可.
 
 > 编译在前端正式项目中是必须的,但是在管理后台就显得非常繁琐.反而会降低开发效率,管理后台应该是让后端能参与的.
 
