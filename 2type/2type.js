@@ -300,7 +300,7 @@ TA.m._dateFormat = function(date, layout) {
     return TA.dayjs(date).format(layout)
 }
 TA.m._encodeJSONQuery=function(data) {
-    let json = JSON.stringify({data})
+    let json = JSON.stringify(data)
     return encodeURIComponent(json)
 }
 import Upload from "./module/upload/index.js"

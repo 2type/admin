@@ -1115,8 +1115,8 @@ _find(option.user, "userID", 2).userName // 李四
 将对象转换为 URL query 值
 
 ```shell
-/list?json={{_encodeJSONQuery({'name':'2type'})}}
-# /list?json=%7B%22data%22%3A%7B%22name%22%3A%222type%22%7D%7D
+var url = `/list?json=${TA.m._encodeJSONQuery({'name':'2type'})}`
+# '/list?json=%7B%22name%22%3A%222type%22%7D'
 ```
 
 ## _objectIDToDate(oid)
