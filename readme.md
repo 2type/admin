@@ -1051,27 +1051,26 @@ TA.enum.skuType = [
 ]
 ```
 
-通过 `_enum()` 获取获取到 `TA.enum`
-
 ```js
-_find(_enum().skuType, "value", 2).label // 实物
-_find(_enum().skuType, "value", 2).key // object
-_find(_enum().skuType, "value", 2).id // 2
+_find("skuType", 2).label // 实物
+_find("skuType", 2).key  // object
+_find("skuType", 2).id   // 2
 
-_find(_enum().skuType, "key", "object").label // 实物
-_find(_enum().skuType, "key", 'object').key // object
-_find(_enum().skuType, "key", 'object').id // 2
+
+_find("skuType", "object").label // 实物
+_find("skuType", 'object').key // object
+_find("skuType", 'object').id // 2
 ```
 
 
 **在 el-table 中将 `1` `2` 转换为`"虚拟""` `"实物"`**
 
-`_find(_enum().skuType, "value", scope.row.type).label`
+`_find("skuType", scope.row.type).label`
 
 ```html
 <el-table-column label="类型">
     <template slot-scope="scope">
-        {{_find(_enum().skuType, "value", scope.row.type).label}}
+        {{_find("skuType", scope.row.type).label}}
     </template>
 </el-table-column>
 ```
@@ -1095,18 +1094,18 @@ _find(_enum().skuType, "key", 'object').id // 2
 ```
 
 ```js
-_find(option.user, "userID", 1).userName // 张三
-_find(option.user, "userID", 2).userName // 李四
+_find(option.user, 1).userName // 张三
+_find(option.user, 2).userName // 李四
 ```
 
 **在 el-table 中将 `1` `2` 转换为`"张三""` `"李四"`**
 
-`_find(option.user, "userID", scope.row.userID).userName`
+`_find(option.user, scope.row.userID).userName`
 
 ```html
 <el-table-column label="用户">
     <template slot-scope="scope">
-        {{_find(option.user, "userID", scope.row.userID).userName}}
+        {{_find(option.user, scope.row.userID).userName}}
     </template>
 </el-table-column>
 ```

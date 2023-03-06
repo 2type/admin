@@ -1,6 +1,6 @@
 // 单独存储包含管理后台信息的js配置,未登录状态可看到此文件会被恶意攻击者知道管理后台的菜单项
 
-// TA.m._find("skuType", "value", 1).label // "虚拟"
+// TA.m._find("skuType", 1).label // "虚拟"
 TA.enum.skuType = [
     {
         key: 'digit',

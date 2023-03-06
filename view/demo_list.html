@@ -51,13 +51,13 @@
             <el-table-column width="50" prop="id" label="ID"></el-table-column>
             <el-table-column label="用户">
                 <template slot-scope="scope">
-                    {{_find(option.user, "userID", scope.row.userID).userName}}
+                    {{_find(option.user, scope.row.userID).userName}}
                 </template>
             </el-table-column>
             <el-table-column prop="title" label="标题"></el-table-column>
             <el-table-column label="类型">
                 <template slot-scope="scope">
-                    {{_find(_enum().skuType, "value", scope.row.type).label}}
+                    {{_find("skuType", scope.row.type).label}}
                 </template>
             </el-table-column>
             <el-table-column label="操作">

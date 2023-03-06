@@ -267,7 +267,7 @@ TA.enum = TA.enum || {}
 * */
 TA.m._find = function (source, key, value) {
     let data = {}
-    // 向前兼容
+    let out = {}
     if (typeof source == "string") {
         if (!data) {
             console.log(`_find(${source}, ${key}, ${value}) TA.m.${source} can not found`)
@@ -277,14 +277,25 @@ TA.m._find = function (source, key, value) {
     } else {
         data = source
     }
-    key = key || "key"
-    let out = ""
-    data.some(function (item) {
-        if (item[key] == value) {
-            out = item
-            return true
-        }
-    })
+    if (typeof value == "undefined") {
+        value = key
+        data.some(function (item) {
+            Object.keys(item).some(function (itemKey) {
+                var itemValue = item[itemKey]
+                if (itemValue == value) {
+                    out = item
+                    return true
+                }
+            })
+        })
+    } else {
+        data.some(function (item) {
+            if (item[key] == value) {
+                out = item
+                return true
+            }
+        })
+    }
     return out
 }
 TA.m._objectIDToDate = function(objectID) {
