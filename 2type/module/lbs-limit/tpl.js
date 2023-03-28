@@ -24,6 +24,7 @@ export default
         ></el-cascader>
         <el-button @click="copySelected">复制配置</el-button>
         <el-button @click="setSelected">设置配置</el-button>
+        <ta-lbs-text-match title="包含区域" v-model="value.selected"></ta-lbs-text-match>
     </div>
     <div v-if="value.type == 'inverse' || value.type == 'selectedAndInverse'" >
         排除区域: <br>

@@ -338,4 +338,7 @@ Vue.component(RESGION.name, RESGION)
 import InputFen from "./module/input-fen/index.js"
 Vue.component(InputFen.name, InputFen)
 
+import LbsTextMatch from "./module/lbs-text-match/index.js"
+Vue.component(LbsTextMatch.name, LbsTextMatch)
+
 document.getElementById("ta-app").style.display="block"
