@@ -168,6 +168,7 @@ export default {
                                                 return true
                                             }
                                         }else {
+                                            output.msg = "当前操作会选中市级, 包含其下所有区"
                                             output.pass = true
                                         }
                                         return true
@@ -183,6 +184,7 @@ export default {
                                 return true
                             }
                         }else{
+                            output.msg = "当前操作会选中省级, 包含其下所有市"
                             output.pass = true
                         }
                         return true

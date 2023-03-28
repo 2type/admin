@@ -30,7 +30,8 @@ export default
                 <el-table-column property="province" label="匹配(省)">
                     <template slot-scope="scope">
                         <template v-if="scope.row.province.find">
-                            {{scope.row.province.fullName}} {{scope.row.province.adcode}}
+                            {{scope.row.province.fullName}} <br> 
+                            {{scope.row.province.adcode}}
                         </template>
                         <template v-else>--</template>
                     </template>
@@ -38,7 +39,8 @@ export default
                 <el-table-column property="city" label="匹配(市)">
                     <template slot-scope="scope">
                         <template v-if="scope.row.city.find">
-                            {{scope.row.city.fullName}} {{scope.row.city.adcode}}
+                            {{scope.row.city.fullName}} <br> 
+                            {{scope.row.city.adcode}}
                         </template>
                         <template v-else>--</template>
                     </template>
@@ -46,7 +48,8 @@ export default
                 <el-table-column property="district" label="匹配(区)">
                     <template slot-scope="scope">
                         <template v-if="scope.row.district.find">
-                            {{scope.row.district.fullName}} {{scope.row.district.adcode}}
+                            {{scope.row.district.fullName}} <br> 
+                            {{scope.row.district.adcode}}
                         </template>
                         <template v-else>--</template>
                     </template>
