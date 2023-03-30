@@ -14,5 +14,6 @@ export default
         ></el-cascader>
     <el-button @click="copyValue">复制配置</el-button>
     <el-button @click="setValue">设置配置</el-button>
+    <ta-lbs-text-match title="包含区域" v-model="value"></ta-lbs-text-match>
 </div>
 `
