@@ -4,7 +4,6 @@ import copy from "https://cdn.skypack.dev/copy-to-clipboard@3.3.1"
 export default {
     name: "ta-lbs-limit",
     template: template,
-
     data: function() {
         return {
 
