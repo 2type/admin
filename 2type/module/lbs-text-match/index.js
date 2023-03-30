@@ -67,7 +67,16 @@ export default {
                 const origin = item.trim()
                 if(origin) {
                     // @todo 根据/或tab分割
-                    const originList = origin.split("\t")
+                    let originList = []
+                    if(/\//.test(origin)) {
+                        originList = origin.split("/").map((item)=>{return item.trim()})
+                    }else if (/\t/.test(origin)){
+                        originList = origin.split("\t").map((item)=>{return item.trim()})
+                    }else if(/\s/.test(origin)){
+                        originList = origin.replace(/(\s+)/g,'/').split("/").map((item)=>{return item.trim()})
+                    }else {
+                        originList = origin.split(" ").map((item)=>{return item.trim()})
+                    }
                     const analysisResult = vm.analysisOriginList(originList)
                     result.push({
                         origin:origin,
@@ -129,6 +138,7 @@ export default {
             if(province){
                 // 从tree数据中找到省
                 tree.some((pItem)=>{
+                    console.log(pItem.label, province, pItem.label.indexOf(province) > -1)
                     if(pItem.label == province || pItem.label.indexOf(province) > -1) {
                         output.province.fullName = pItem.label
                         output.province.adcode = pItem.value
@@ -160,15 +170,15 @@ export default {
                                                 })
                                                 if(output.city.find == false){
                                                     output.pass = false
-                                                    output.msg = "未匹配到区数据"
+                                                    output.msg = "未匹配到区"
                                                 }
                                             }else {
                                                 output.pass = false
-                                                output.msg = "市下无区数据"
+                                                output.msg = "市下无区"
                                                 return true
                                             }
                                         }else {
-                                            output.msg = "当前操作会选中市级, 包含其下所有区"
+                                            output.msg = "选中市级, 包含其下所有区"
                                             output.pass = true
                                         }
                                         return true
@@ -176,15 +186,15 @@ export default {
                                 })
                                 if(output.city.find == false){
                                     output.pass = false
-                                    output.msg = "未匹配到市数据"
+                                    output.msg = "未匹配到市"
                                 }
                             }else {
                                 output.pass = false
-                                output.msg = "省份下无城市数据"
+                                output.msg = "省份下无城市"
                                 return true
                             }
                         }else{
-                            output.msg = "当前操作会选中省级, 包含其下所有市"
+                            output.msg = "选中省级, 包含其下所有市"
                             output.pass = true
                         }
                         return true
@@ -192,7 +202,7 @@ export default {
                 })
                 if(output.province.find == false){
                     output.pass = false
-                    output.msg = "未匹配到省数据"
+                    output.msg = "未匹配到省"
                 }
             }
             // @todo 4 5 6

@@ -11,7 +11,9 @@ export default
             <table style="margin: auto;">
                 <tr>
                     <td>
-                        <el-input v-model="originData" type="textarea" :rows="20" placeholder="请输入文本, 一行一个" style="width: 400px;"></el-input>
+                        <el-input v-model="originData" type="textarea" :rows="30" style="width: 400px;"
+                            placeholder="请输入文本, 一行一个\n支持格式例:\nxx省   xx市    xx区\nxx省   xx市\nxx省\nxx省/xx市/xx区\nxx省/xx市\nxx省"
+                        ></el-input>
                     </td>
                     <td>
                         <el-button @click="analysisOriginData">下一步</el-button>
@@ -20,8 +22,8 @@ export default
             </table>
         </template>    
         <template v-if="step==2">
-            <el-table :data="list" highlight-current-row height="600" size="mini">
-                <el-table-column property="originIndex" label="原行位"></el-table-column>
+            <el-table :data="list" highlight-current-row height="560" size="mini">
+                <el-table-column property="originIndex" label="原行" width="50"></el-table-column>
                 <el-table-column property="origin" label="原内容" width="300">
                     <template slot-scope="scope">
                         <el-input v-model="scope.row.origin" type="text" />
@@ -61,7 +63,12 @@ export default
                         <el-tag v-else type="danger">失败</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column property="msg" label="分析"></el-table-column>
+                <el-table-column property="msg" label="分析" width="200">
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.pass" style="color: #e6a23c;">{{scope.row.msg}}</span>
+                        <span v-else style="color: #f56c6c;">{{scope.row.msg}}</span>
+                    </template>
+                </el-table-column>
             </el-table>
             <div>
                 数据: {{getTotal.total}} 个, 

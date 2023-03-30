@@ -40,6 +40,7 @@ export default
         ></el-cascader>
         <el-button @click="copyInverse">复制配置</el-button>
         <el-button @click="setInverse">设置配置</el-button>
+        <ta-lbs-text-match title="包含区域" v-model="value.inverse"></ta-lbs-text-match>
    </div>
 </div>
 `
