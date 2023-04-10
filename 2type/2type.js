@@ -269,11 +269,14 @@ TA.m._find = function (source, key, value) {
     let data = {}
     let out = {}
     if (typeof source == "string") {
+        data = TA.enum[source]
         if (!data) {
-            console.log(`_find(${source}, ${key}, ${value}) TA.m.${source} can not found`)
+            var msg = `_find(${source}, ${key}, ${value}) TA.m.${source} can not found`
+            console.error(msg)
+            alert(msg)
+
             return
         }
-        data = TA.enum[source]
     } else {
         data = source
     }
