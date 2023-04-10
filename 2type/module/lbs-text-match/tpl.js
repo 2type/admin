@@ -32,8 +32,8 @@ export default
                 <el-table-column property="province" label="匹配(省)">
                     <template slot-scope="scope">
                         <template v-if="scope.row.province.find">
-                            {{scope.row.province.fullName}} <br> 
-                            {{scope.row.province.adcode}}
+                            <div>{{scope.row.province.fullName}}</div> 
+                            <div style="color: #C0C4CC;">{{scope.row.province.adcode}}</div>
                         </template>
                         <template v-else>--</template>
                     </template>
@@ -41,8 +41,8 @@ export default
                 <el-table-column property="city" label="匹配(市)">
                     <template slot-scope="scope">
                         <template v-if="scope.row.city.find">
-                            {{scope.row.city.fullName}} <br> 
-                            {{scope.row.city.adcode}}
+                            <div>{{scope.row.city.fullName}}</div> 
+                            <div style="color: #C0C4CC;">{{scope.row.city.adcode}}</div>
                         </template>
                         <template v-else>--</template>
                     </template>
@@ -50,16 +50,16 @@ export default
                 <el-table-column property="district" label="匹配(区)">
                     <template slot-scope="scope">
                         <template v-if="scope.row.district.find">
-                            {{scope.row.district.fullName}} <br> 
-                            {{scope.row.district.adcode}}
+                            <div>{{scope.row.district.fullName}}</div> 
+                            <div style="color: #C0C4CC;">{{scope.row.district.adcode}}</div>
                         </template>
                         <template v-else>--</template>
                     </template>
                 </el-table-column>
-                <el-table-column property="adcode" label=""></el-table-column>
+                <el-table-column property="adcode" label="匹配值"></el-table-column>
                 <el-table-column property="pass" label="匹配结果">
                     <template slot-scope="scope">
-                        <el-tag v-if="scope.row.pass" type="success">{{scope.row.adcode}}</el-tag>
+                        <el-tag v-if="scope.row.pass" type="success">成功</el-tag>
                         <el-tag v-else type="danger">失败</el-tag>
                     </template>
                 </el-table-column>

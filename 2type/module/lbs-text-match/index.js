@@ -1,5 +1,4 @@
 import template from "./tpl.js"
-import area from "../lbs/area.js";
 import tree from "../lbs/tree.js"
 export default {
     name: "ta-lbs-text-match",
@@ -168,7 +167,7 @@ export default {
                                                         return true
                                                     }
                                                 })
-                                                if(output.city.find == false){
+                                                if(output.district.find == false){
                                                     output.pass = false
                                                     output.msg = "未匹配到区"
                                                 }
@@ -206,6 +205,9 @@ export default {
                 }
             }
             // @todo 4 5 6
+            if (output.pass == false) {
+                output.adcode = ""
+            }
             return output
         },
         // 将list中pass=true的数据中adcode, 添加到value中
