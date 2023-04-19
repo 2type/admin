@@ -48,7 +48,7 @@
 
 1. [project.js](./project.js) 项目配置
 1. [project.auth.js](./project.auth.js) 项目配置 `授权(登录)后才能访问的项目配置`
-1. [project.css](./project.css) 项目样式 
+1. [project.css](./project.css) 项目样式
 
 ### 静态资源
 1. [2type/**](./2type/) 项目所需静态资源,不要改动这里的代码
@@ -144,7 +144,7 @@ methods: {
 },
 ```
 
-> 如果你误删了 `...__RENDER_DATA,` 或者 `...TA.m,` 可能会导致某些功能失效 
+> 如果你误删了 `...__RENDER_DATA,` 或者 `...TA.m,` 可能会导致某些功能失效
 
 ### 本地预览
 
@@ -155,7 +155,7 @@ methods: {
 ### ta-page
 
 > 页面
-> 
+>
 ```html
 <ta-page :header="header">
 </ta-page>
@@ -434,6 +434,24 @@ TA.hook.editor.insertImage = function (res, insert) {
 > 4. 不限地区  
 
 ```mongo
+// adcode = ["310112"]
+// adcode = []
+var areaLimit = [{"areaLimit.type": "unlimited",}]
+if (adcode.length != 0) {
+	areaLimit.push({
+		"areaLimit.type": "selected",
+                "areaLimit.selected": {$in: adcode},
+	})
+	areaLimit.push({
+		"areaLimit.type": "inverse",
+                "areaLimit.inverse": {$in: adcode},
+	})
+	areaLimit.push({
+		"areaLimit.type": "selectedAndInverse",
+                "areaLimit.selected": {$in: adcode},
+		"areaLimit.inverse": {$in: adcode},
+	})
+}
 db.advertisingRule.find({
     $and: [{
         "advertisingID": {
@@ -441,24 +459,7 @@ db.advertisingRule.find({
         }
     },
     {
-        $or: [
-            {
-                "areaLimit.type": "selected",
-                "areaLimit.selected": {$in: ["310112"]},
-            },
-            {
-                "areaLimit.type": "inverse",
-                "areaLimit.inverse": {$nin: ["310112"]}
-            },
-            {
-                "areaLimit.type": "selectedAndInverse",
-                "areaLimit.selected": {$in: ["310112"]},
-                "areaLimit.inverse": {$nin: ["310112"]}
-            },
-            {
-                "areaLimit.type": "unlimited",
-            },
-        ]
+        $or: areaLimit,
     }]
 })
 ```
@@ -474,7 +475,7 @@ ta-input-fen 在用户输入时使用2位数浮点数(元),保存数据时使用
 <span v-if="form.amount">（{{form.amount}}分）</span>
 ```
 
-> ta-input-fen 底层使用 [el-input-number](https://element.eleme.io/#/zh-CN/component/input-number), 
+> ta-input-fen 底层使用 [el-input-number](https://element.eleme.io/#/zh-CN/component/input-number),
 > 你可以在 ta-input-fen 上配置 el-input-number 的所有属性
 
 ### element-ui
@@ -615,7 +616,7 @@ new Vue({
     }
 })
 ```
-例如 TA.m 中定义了 `_jump` 方法 
+例如 TA.m 中定义了 `_jump` 方法
 
 ```html
 <el-button @click="_jump('https://github.com/2type/admin')" >创建</el-button>
@@ -725,7 +726,7 @@ new Vue({
 
 ### formKind
 
-在创建和编辑页面需要配置  `formKind` ,值可以是`"create"` 或 `"update"`. 
+在创建和编辑页面需要配置  `formKind` ,值可以是`"create"` 或 `"update"`.
 
 可以使用 `:disabled="formKind == 'update'"` 让某些组件在编辑页面中无法编辑
 
@@ -810,7 +811,7 @@ TA.m._req({
 }, function passCallback (res) {
     console.log(res)
 })
- 
+
 TA.m._req({
     $loading: false, // 可以通过 $loading: false  取消 loading 遮罩层
     method:"get",
@@ -820,7 +821,7 @@ TA.m._req({
 }, function failCallback() {
 
 }, function alwaysCallback() {
-    
+
 })
 
 TA.m._req({
@@ -840,9 +841,9 @@ TA.m._req({
 })
 ```
 
-config 参数是 [axios](https://axios-http.com/zh/docs/api_intro) 的参数. 
+config 参数是 [axios](https://axios-http.com/zh/docs/api_intro) 的参数.
 
-`passCallback`  `failCallback` 是请求成功失败的回调,可以通过 在 [./project.js](./project.js) 中修改 
+`passCallback`  `failCallback` 是请求成功失败的回调,可以通过 在 [./project.js](./project.js) 中修改
 `TA.hook.req.handleError` 来匹配后端接口.
 
 后端操作成功响应:
@@ -890,7 +891,7 @@ console.log(TA.hook.req.failCallback.toString())
 
 默认的 `passCallback` 根据响应参数提供了一些便捷方法
 
-控制跳转到任意地址 
+控制跳转到任意地址
 ```json
 {"jump":"https://github.com/2type/admin", "code":0, "message":""}
 ```
@@ -1143,7 +1144,7 @@ Date 对象或时间字符串格式化
 # 2012-10-18 05:13:27
 ```
 
-<!-- 
+<!--
 ## mobile
 
 你还可以使用 2type/admin 快速开发移动端,这需要你有一点的前端基础.
