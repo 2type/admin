@@ -144,7 +144,7 @@
                 }).then(function (dataRes) {
                     TA.axios({
                         method: 'get',
-                        url: 'https://unpkg.zhimg.com/@2type/geodata@0.0.1/china/json_v3/'+ data.id + '.json',
+                        url: 'https://unpkg.com/@2type/geodata@0.0.1/china/json_v3/'+ data.id + '.json',
                         responseType: 'json'
                     }).then(function (geoRes) {
                         vm.districtData = dataRes.data.districts
@@ -172,7 +172,7 @@
                 }).then(function (dataRes) {
                     TA.axios({
                         method: 'get',
-                        url: 'https://unpkg.zhimg.com/echarts@4.9.0/map/json/province/'+ data.ename + '.json',
+                        url: 'https://unpkg.com/@2type/geodata@0.0.1/china/json_v3/'+ data.id + '.json',
                         responseType: 'json'
                     }).then(function (geoRes) {
                         vm.cityData = dataRes.data.cities
