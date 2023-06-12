@@ -247,9 +247,10 @@ TA.m._export = function (data) {
 * @param {object} data - 数据
 * */
 TA.m._exportURL = function (path, data) {
-    data.export = true
+    var cloneData = JSON.parse(JSON.stringify(data))
+    cloneData.export = true
     TA.m._open(path + "?" + TA.qs.stringify({
-        json: JSON.stringify(data)
+        json: JSON.stringify(cloneData)
     }))
 }
 /*
