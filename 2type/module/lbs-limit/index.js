@@ -1,6 +1,6 @@
 import template from "./tpl.js"
 import tree from "../lbs/tree.js"
-import copy from "https://cdn.skypack.dev/copy-to-clipboard@3.3.1"
+import copy from "https://esm.2type.cn/copy-to-clipboard@3.3.1"
 export default {
     name: "ta-lbs-limit",
     template: template,
