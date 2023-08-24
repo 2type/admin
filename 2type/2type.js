@@ -151,6 +151,8 @@ TA.m._readSearch = function() {
 TA.m._req = function (config, passCallback, failCallback, always) {
     let settings = config
     settings.responseType = settings.responseType || "json"
+    settings.headers = settings.headers || {}
+    settings.headers['X-Requested-With'] = 'XMLHttpRequest'
     let loading = {
         close(){}
     }

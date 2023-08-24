@@ -18,6 +18,40 @@
 <script type="module" src="/public/2type/2type.js" ></script>
 <script type="module" src="/public/project.js" ></script>
 <script type="module" src="/public/project.auth.js" ></script>
+<!--如果你的管理后台需要权限管理,可以使用这段注释中的代码 -->
+<!--/admin/base/data 的实现参考 https://github.com/goclub/startup-->
+<!--<script src="/admin/base/data"></script>-->
+<!--<script type="module" >-->
+<!--    console.log("__ADMIN_BASE_DATA", __ADMIN_BASE_DATA)-->
+<!--    TA.m._auth = function (auth) {-->
+<!--        return __ADMIN_BASE_DATA.role.auth.includes(auth)-->
+<!--    }-->
+<!--    var save = function(v) {-->
+<!--        if (v.url) {-->
+<!--            var auth = __ADMIN_BASE_DATA.authMap[v.url]-->
+<!--            if (__ADMIN_BASE_DATA.role.auth.includes(auth) == false) {-->
+<!--                return false-->
+<!--            }-->
+<!--        }-->
+<!--        return true-->
+<!--    }-->
+<!--    if (__ADMIN_BASE_DATA.manager.super == false) {-->
+<!--        TA.nav.items = TA.nav.items.filter(function (v){-->
+<!--            if (save(v) == false) {-->
+<!--                return false-->
+<!--            }-->
+<!--            if (v.items) {-->
+<!--                v.items = v.items.filter(function (sub) {-->
+<!--                    return save(sub)-->
+<!--                })-->
+<!--                if (v.items.length === 0 ) {-->
+<!--                    return false-->
+<!--                }-->
+<!--            }-->
+<!--            return true-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
 <!---- begin script ---->
 [[block script()]][[end]]
 <!---- end   script ---->
