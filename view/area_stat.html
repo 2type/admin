@@ -13,10 +13,13 @@
         <h2  v-if="districtGeo" >区县级</h2>
         <ta-geo-map  v-if="districtGeo" @click="clickDistrictMap" :map-data="districtData" :geo="districtGeo" :value-key="provinceDataType" ></ta-geo-map>
         <ta-heat-map v-if="heatMapApiKey && heatMapData" :map-data="heatMapData" :center="heatMapCenter" ></ta-heat-map>
-        <p v-if="!heatMapApiKey" >
+        <p >
             如果想使用热力图,请在 <a target="_blank" href="https://lbs.qq.com/webApi/visualizationApi/visualizationGuide/visualizationBasic">https://lbs.qq.com/webApi/visualizationApi/visualizationGuide/visualizationBasic</a>
             获取 key 后通过
-            <code>/admin/area_stat?heat_map_api_key=你的key</code> 访问本页面
+            输入key:<el-input v-model="inputKey" size="mini" style="width:300px"></el-input><el-button @click="useKey" size="mini">访问</el-button>
+            <br>
+            key正确选择到区县时会显示出热力图:
+            <img src="/public/2type/demo/hotmap.gif" width="400">
         </p>
     </ta-box>
 </ta-pc>
@@ -116,6 +119,7 @@
         data: function () {
             const out = {
                 ...__RENDER_DATA,
+                inputKey: "",
                 header: header,
                 provinceDataType: 'uv',
                 cityData: {},
@@ -133,6 +137,9 @@
         },
         methods: {
             ...TA.m,
+            useKey() {
+                location.href = location.pathname + "?heat_map_api_key=" + this.inputKey
+            },
             clickCityMap(data) {
               console.log("clickCityMap", data)
                 const vm = this
