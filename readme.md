@@ -499,82 +499,17 @@ ta-input-fen 在用户输入时使用2位数浮点数(元),保存数据时使用
 ### 图表
 
 ```html
-<div ref="g2ChartNode" style="mountedheight:300px" ></div>
-<div ref="saleChartNode" style="height:300px" ></div>
+<div ref="mktChartNode" style="height:300px" ></div>
 ```
 
 ```js
-mounted() {
+ mounted() {
     const vm = this
-    setTimeout(function () {
-        var chart = echarts.init(vm.$refs.saleChartNode);
-        // 配置参考 https://echarts.apache.org/examples/zh/editor.html?c=line-stack
-        const option = {
-            tooltip: {trigger: 'axis'},
-            legend: {data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']},
-            grid: {left: '3%', right: '4%', bottom: '3%', containLabel: true},
-            toolbox: {feature: {saveAsImage: {}}},
-            xAxis: {type: 'category', boundaryGap: false, data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']},
-            yAxis: {type: 'value'},
-            series: [{
-                name: 'Email',
-                type: 'line',
-                stack: 'Total',
-                data: [120, 132, 101, 134, 90, 230, 210]
-            }, {
-                name: 'Union Ads',
-                type: 'line',
-                stack: 'Total',
-                data: [220, 182, 191, 234, 290, 330, 310]
-            }, {
-                name: 'Video Ads',
-                type: 'line',
-                stack: 'Total',
-                data: [150, 232, 201, 154, 190, 330, 410]
-            }, {
-                name: 'Direct',
-                type: 'line',
-                stack: 'Total',
-                data: [320, 332, 301, 334, 390, 330, 320]
-            }, {name: 'Search Engine', type: 'line', stack: 'Total', data: [820, 932, 901, 934, 1290, 1330, 1320]}]
-        };
-        chart.setOption(option);
-    }, 1000)
-    // 一定要延迟渲染
-    setTimeout(function () {
-        // 使用前请确保 <script type="module" > 起始处引用了
-        // import g2 from 'https://esm.2type.cn/@antv/g2@v4.1.27/dist/g2.min.js'
-        const data = [{"Data": "2017-01", "sales": 1145}, {"Data": "2017-02", "sales": 1244}, {"Data": "2018-03", "sales": 1745 }, {"Data": "2018-04", "sales": 1680}, {"Data": "2018-05", "sales": 1802}, {"Data": "2018-06", "sales": 1697 }, {"Data": "2018-07", "sales": 1583}, {"Data": "2018-08", "sales": 1556}, {"Data": "2018-09", "sales": 1824 }, {"Data": "2018-10", "sales": 2398}, {"Data": "2018-11", "sales": 2278}, {"Data": "2018-12", "sales": 2495 }]
-        const chart = new Chart({
-            container: vm.$refs.g2ChartNode,
-            autoFit: true,
-            height: 500,
-        });
-        chart.data(data);
-        chart.scale('Data', {
-            range: [0, 1],
-            tickCount: 10,
-            type: 'timeCat'
-        });
-        chart.scale('sales', {
-            nice: true,
-        });
-        chart.axis('sales', {
-            label: {
-                formatter: text => {
-                    return text.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-                }
-            }
-        });
-        chart.tooltip({
-            showCrosshairs: true,
-        });
-
-        chart.line().position('Data*sales');
-        chart.area().position('Data*sales');
-        chart.render();
-    }, 1000)
-}
+    var chart= TA.echarts.init(vm.$refs.mktChartNode);
+    // 配置参考 https://echarts.apache.org/examples/zh/editor.html?c=line-stack
+    const option = {tooltip: {trigger: 'axis'}, grid: {left: '3%', right: '4%', bottom: '3%', containLabel: true }, xAxis: {type: 'category', boundaryGap: false, data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] }, yAxis: {type: 'value'}, series: [{name: '邮件', type: 'line', stack: 'Total', data: [120, 132, 101, 134, 90, 230, 210] }, {name: '广告', type: 'line', stack: 'Total', data: [220, 182, 191, 234, 290, 330, 310] }, {name: '视频', type: 'line', stack: 'Total', data: [150, 232, 201, 154, 190, 330, 410] }, {name: '短信', type: 'line', stack: 'Total', data: [320, 332, 301, 334, 390, 330, 320] }, {name: '搜索引擎', type: 'line', stack: 'Total', data: [820, 932, 901, 934, 1290, 1330, 1320] } ] };
+    chart.setOption(option);
+},
 ```
 
 

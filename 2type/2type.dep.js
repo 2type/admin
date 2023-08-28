@@ -12,9 +12,15 @@ window.TA = window.TA || {
     wangEditor,
     copy,
 }
+// https://www.npmjs.com/package/query-string/v/7.0.0
 TA.qs = qs
+// https://axios-http.com/zh/docs/api_intro
 TA.axios = axios
+// https://dayjs.gitee.io/docs/zh-CN/manipulate/manipulate
 TA.dayjs = dayjs
+// https://echarts.apache.org/handbook/zh/get-started/
 TA.echarts = echarts
+// https://www.wangeditor.com/v4/
 TA.wangEditor = wangEditor
+// https://www.npmjs.com/package/copy-to-clipboard/v/3.3.1
 TA.copy = copy
