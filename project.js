@@ -48,7 +48,7 @@ TA.hook.req.passCallback =  function (res) {
         if (/^url_/.test(res.data.jump) && /\(\)$/.test(res.data.jump)) {
             const urlKey = res.data.jump.replace("()", "")
             console.log("跳转至 TA.m." + urlKey)
-            const urlfn = TA.m[urlKey]
+            const urlfn= TA.m[urlKey]
             if (typeof urlfn == "undefined") {
                 ELEMENT.Message({
                     type: 'error',

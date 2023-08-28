@@ -1,5 +1,5 @@
 import template from "./tpl.js"
-import echarts from "https://esm.2type.cn/echarts@5.2.1/dist/echarts.min.js"
+const echarts= TA.echarts
 export default {
     name: "ta-geo-map",
     template: template,

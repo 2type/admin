@@ -1,6 +1,6 @@
 import template from "./tpl.js"
 import geo from "./geo.js"
-import echarts from "https://esm.2type.cn/echarts@5.2.1/dist/echarts.min.js"
+const echarts= TA.echarts
 export default {
     name: "ta-china-map",
     template: template,
@@ -18,7 +18,6 @@ export default {
                 return "value"
             }
         },
-        // https://unpkg.com/echarts@4.9.0/map/js/china.js
         geo: {
             type: Object,
             default: function () {

@@ -18,8 +18,11 @@ TA.enum.skuType = [
 TA.m.url_logout = function () {
     return "/admin/logout"
 }
+TA.m.url_manager_message = function () {
+    return "/admin/manager/message"
+}
 TA.m.url_demo_list = function () {
-    var value = TA.m._encodeJSONQuery({
+    var value= TA.m._encodeJSONQuery({
         daterange: [
             TA.dayjs().subtract(6, 'day').format("YYYY-MM-DD"),
             TA.dayjs().format("YYYY-MM-DD")
@@ -44,10 +47,13 @@ TA.nav = {
         logo: 'https://icon.2type.cn/logo.svg',
         title: "内部管理后台",
     },
-    user: {
+    manager: {
         avatar: "https://icon.2type.cn/user-male.svg",
         name: "admin",
+        unreadMessage: 3,
     },
+    // 消息
+    messageURL: TA.m.url_manager_message(),
     // 退出登录
     logoutURL: TA.m.url_logout(),
     // 导航

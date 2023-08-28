@@ -82,7 +82,7 @@
         methods: {
             ...TA.m,
             onClickCaptcha() {
-                this.captchaPhoto = TA.m.url_captcha() + "?t=" + new Date().getTime()
+                this.captchaPhoto= TA.m.url_captcha() + "?t=" + new Date().getTime()
             },
             onClickSmsSend() {
                 const vm = this

@@ -504,17 +504,9 @@ ta-input-fen 在用户输入时使用2位数浮点数(元),保存数据时使用
 ```
 
 ```js
-// 使用前需先引用 (记得在 <script type="module" > 开头引用)
-import g2 from 'https://esm.2type.cn/@antv/g2@v4.1.27/dist/g2.min.js'
-import echarts from "https://esm.2type.cn/echarts@5.2.1/dist/echarts.min.js"
-```
-
-```js
 mounted() {
     const vm = this
     setTimeout(function () {
-        // 使用前请确保 <script type="module" > 起始处引用了
-        // import echarts from "https://esm.2type.cn/echarts@5.2.1/dist/echarts.min.js"
         var chart = echarts.init(vm.$refs.saleChartNode);
         // 配置参考 https://echarts.apache.org/examples/zh/editor.html?c=line-stack
         const option = {
@@ -685,7 +677,7 @@ TA.m.url_demo_update = function (id) {
 
 ```js
 TA.m.url_demo_list = function () {
-    var value = TA.m._encodeJSONQuery({
+    var value= TA.m._encodeJSONQuery({
         daterange: [
             TA.dayjs().subtract(6, 'day').format("YYYY-MM-DD"),
             TA.dayjs().format("YYYY-MM-DD")

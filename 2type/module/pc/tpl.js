@@ -46,20 +46,26 @@ export default
             <el-header  style="height:auto;padding:1em;border-bottom:1px solid #eee;position:relative;z-idnex:2;">
                 <div  style="float:right;" >
                     <el-dropdown :hide-on-click="false">
-                      <div>
-                          <el-image
-                              style="width: 30px; height: 30px;border-radius: 50%;margin-bottom: -0.8em;"
-                              :src="nav.user.avatar"
-                              fit="contain"
-                           ></el-image>
-                              {{nav.user.name}}
-                              <i class="el-icon-arrow-down el-icon--right"></i> 
+                        <div style="cursor: pointer;">
+                              <el-image
+                                  style="width: 30px; height: 30px;border-radius: 50%;margin-bottom: -0.8em;"
+                                  :src="nav.manager.avatar"
+                                  fit="contain"
+                               ></el-image>
+                              <ta-unread :unread="nav.manager.unreadMessage">
+                              {{nav.manager.name}}
+                              </ta-unread>
+                              <i class="el-icon-arrow-down el-icon--right"></i>
                         </div>
                       <el-dropdown-menu slot="dropdown">
                           <el-dropdown-item>
+                          <ta-unread :unread="nav.manager.unreadMessage" :show-count="true">
+                            <el-link :href="nav.messageURL" target="_blank">消息</el-link>
+                          </ta-unread>
+                          </el-dropdown-item>
+                          <el-dropdown-item>
                             <el-link :href="nav.logoutURL" target="_blank">退出</el-link>
                           </el-dropdown-item>
-                        </el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
                 </div>
