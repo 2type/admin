@@ -26,7 +26,7 @@ body {
     margin-top: -.3em;
 }
 .ta-box {
-    box-shadow: 1px 1px 11px #ddd;
+    box-shadow: 1px 1px 0px #dddddd96;
     background: white;
     border-radius: .3em;
     padding: 2em;
