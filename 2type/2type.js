@@ -89,7 +89,7 @@ TA.m._isDemo = function() {
 * */
 // /news?id=1&name=nimo 返回 {id:"1",name:"nimo"}
 TA.m._query = function() {
-    return qs.parse(location.search)
+    return TA.qs.parse(location.search)
 }
 /*
 * 返回 formKind 对应的中文
@@ -101,7 +101,7 @@ TA.m._formKindLabel = function() {
         'update': "编辑",
     }
     let vm = this
-    let query = qs.parse(location.search)
+    let query = TA.qs.parse(location.search)
     let RenderData = __RENDER_DATA
     let key =  vm.formKind || query.formKind || RenderData.formKind
     return map[key] || '提交'
@@ -112,10 +112,10 @@ TA.m._formKindLabel = function() {
 * return {object}
 * */
 TA.m._readSearch = function() {
-    if (!qs.parse(location.search).json) {
+    if (!TA.qs.parse(location.search).json) {
         return {}
     }
-    return JSON.parse(qs.parse(location.search).json)
+    return JSON.parse(TA.qs.parse(location.search).json)
 }
 
 /*
@@ -316,6 +316,9 @@ Vue.component(LBSLIMIT.name, LBSLIMIT)
 
 import RESGION from "./module/region/index.js"
 Vue.component(RESGION.name, RESGION)
+
+import RESGION_NATIVE from "./module/cascader-native/index.js"
+Vue.component(RESGION_NATIVE.name, RESGION_NATIVE)
 
 import InputFen from "./module/input-fen/index.js"
 Vue.component(InputFen.name, InputFen)

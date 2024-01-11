@@ -27,6 +27,12 @@
             <el-form-item label="地区选择" >
                 <ta-region v-model="form.region"></ta-region>
             </el-form-item>
+            <el-form-item label="地区选择(原生)" >
+                <ta-cascader-native v-model="form.cascaderNative"></ta-cascader-native>
+                <el-button @click="form.cascaderNative = ['360000','']">设置省</el-button>
+                <el-button @click="form.cascaderNative = ['360000','360200', '']">设置省市</el-button>
+                <el-button @click="form.cascaderNative = ['360000','360200', '360203']">设置省市区</el-button>
+            </el-form-item>
             <el-form-item label="地区限制" >
                 <ta-lbs-limit v-model="form.area"></ta-lbs-limit>
             </el-form-item>
@@ -125,6 +131,7 @@
                 photoList: [],
                 fileList: [],
                 region: [],
+                cascaderNative: [],
                 content: "",
             }
             return out
