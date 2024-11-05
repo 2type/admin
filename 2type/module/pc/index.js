@@ -19,11 +19,7 @@ export default {
             return  url
         },
         icon(path) {
-            if (!/^(http)/.test(path)) {
-                return 'https://icon.2type.cn/'+ path +'.svg'
-            } else {
-                return path
-            }
+            return path
         },
         handleSelect(url) {
             if (url) {

@@ -82,6 +82,7 @@
 </ta-pc>
 [[end]]
 [[block script()]]
+<script type="module" src="/public/2type/2type.dep.chart.js" ></script>
 <script>
     window.__RENDER_data = {
         sum: {
@@ -155,6 +156,12 @@
         },
         mounted() {
             const vm = this
+            if (!TA.echarts) {
+                var msg = "页面需要引入" + `<` + `script type="module" src="/public/2type/2type.dep.chart.js" ></` +`.script>`
+                alert(msg)
+                console.error(msg)
+                return
+            }
             var chart= TA.echarts.init(vm.$refs.mktChartNode);
             // 配置参考 https://echarts.apache.org/examples/zh/editor.html?c=line-stack
             const option = {tooltip: {trigger: 'axis'}, grid: {left: '3%', right: '4%', bottom: '3%', containLabel: true }, xAxis: {type: 'category', boundaryGap: false, data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] }, yAxis: {type: 'value'}, series: [{name: '邮件', type: 'line', stack: 'Total', data: [120, 132, 101, 134, 90, 230, 210] }, {name: '广告', type: 'line', stack: 'Total', data: [220, 182, 191, 234, 290, 330, 310] }, {name: '视频', type: 'line', stack: 'Total', data: [150, 232, 201, 154, 190, 330, 410] }, {name: '短信', type: 'line', stack: 'Total', data: [320, 332, 301, 334, 390, 330, 320] }, {name: '搜索引擎', type: 'line', stack: 'Total', data: [820, 932, 901, 934, 1290, 1330, 1320] } ] };

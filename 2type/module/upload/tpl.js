@@ -7,10 +7,10 @@ export default `
         :on-success="onSuccess"
 >
     <div class="ta-upload-inner">
-        <img v-if="value.src" :src="value.src" class="ta-upload-preview"/>
-        <i v-if="!value.src && !value.filename" class="el-icon-plus ta-upload-picker"></i>
-        <span class="ta-upload-filename">{{value.filename}}</span>
+        <img v-if="pv.src" :src="pv.src" class="ta-upload-preview"/>
+        <i v-if="!pv.src && !pv.filename" class="el-icon-plus ta-upload-picker"></i>
+        <span class="ta-upload-filename">{{pv.filename}}</span>
     </div>
-    <span v-if="value.src || value.filename"  @click.stop="onRemove" class="ta-upload-close el-icon-error"></span>
+    <span v-if="pv.src || pv.filename"  @click.stop="onRemove" class="ta-upload-close el-icon-error"></span>
 </el-upload>
 `

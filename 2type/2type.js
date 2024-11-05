@@ -143,7 +143,7 @@ TA.m._req = function (config, passCallback, failCallback, always) {
     always = always || function () {
 
     }
-    axios(settings).then(function (res) {
+    TA.axios(settings).then(function (res) {
         loading.close()
         if (!failCallback) {
             failCallback= TA.hook.req.failCallback

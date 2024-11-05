@@ -55,6 +55,12 @@ export default {
     },
     mounted: function(){
         const vm = this
+        if (!TA.echarts) {
+            var msg = "页面需要引入" + `<` + `script type="module" src="/public/2type/2type.dep.chart.js" ></` +`.script>`
+            alert(msg)
+            console.error(msg)
+            return
+        }
         echarts.registerMap('ta-china-map', vm.geo)
         vm.$chart = echarts.init(vm.$refs.chartsCanvas);
         vm.render()

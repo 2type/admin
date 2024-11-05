@@ -57,6 +57,12 @@ export default {
     mounted: function(){
         const vm = this
         vm.registerMap(vm.geo)
+        if (!TA.echarts) {
+            var msg = "页面需要引入" + `<` + `script type="module" src="/public/2type/2type.dep.chart.js" ></` +`.script>`
+            alert(msg)
+            console.error(msg)
+            return
+        }
         vm.$chart = echarts.init(vm.$refs.chartsCanvas);
         vm.render()
         vm.$chart.on("click", function(params) {

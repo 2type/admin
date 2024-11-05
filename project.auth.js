@@ -44,11 +44,11 @@ TA.m.url_mobile_home = function () {
 TA.nav = {
     // 头部
     top: {
-        logo: 'https://icon.2type.cn/logo.svg',
+        logo: '',
         title: "内部管理后台",
     },
     manager: {
-        avatar: "https://icon.2type.cn/user-male.svg",
+        avatar: "",
         name: "admin",
         unreadMessage: 3,
     },
@@ -61,16 +61,16 @@ TA.nav = {
         {
             url: TA.m.url_home(),
             // 可在 https://icon.2type.cn/ 中寻找 icon 或者直接填写 https://icon.2type.cn/logo.svg
-            icon: 'display',
+            icon: '',
             title: "首页",
         },
         {
             url: TA.m.url_area_stat(),
-            icon: 'dusty-blue/rise',
+            icon: '',
             title: "地图统计",
         },
         {
-            icon: 'shopping',
+            icon: '',
             title: "演示",
             items: [
                 {

@@ -18,11 +18,17 @@
             <el-form-item label="单个文件" >
                 <ta-upload v-model="form.file" action="/admin/upload/file" ></ta-upload>
             </el-form-item>
+            <el-form-item label="v-model只保存id(字符串)" >
+                <ta-upload v-model="form.uploadOnlyId" only-id="true" action="/admin/upload/photo" ></ta-upload>
+            </el-form-item>
             <el-form-item label="多个图片" >
                 <ta-upload-list v-model="form.photoList" action="/admin/upload/photo" ></ta-upload-list>
             </el-form-item>
             <el-form-item label="多个文件" >
                 <ta-upload-list v-model="form.fileList" action="/admin/upload/file" ></ta-upload-list>
+            </el-form-item>
+            <el-form-item label="多个 v-model只保存id(字符串)" >
+                <ta-upload-list only-id="true" v-model="form.uploadOnlyIdList" action="/admin/upload/photo" ></ta-upload-list>
             </el-form-item>
             <el-form-item label="地区选择" >
                 <ta-region v-model="form.region"></ta-region>
@@ -51,6 +57,7 @@
 </ta-pc>
 [[end]]
 [[block script()]]
+<script type="module" src="/public/2type/2type.dep.editor.js" ></script>
 <script>
     window.__RENDER_DATA = {}
     // 演示用代码,项目中 __RENDER_DATA 由后端控制输出
@@ -73,6 +80,12 @@
                     src: "https://picsum.photos/100",
                     id: "https://picsum.photos/100",
                 },
+                uploadOnlyId: "",
+                uploadOnlyIdList: [
+                    "https://dummyimage.com/100x100/000/fff?text=1",
+                    "https://dummyimage.com/100x100/000/fff?text=2",
+                    "https://dummyimage.com/100x100/000/fff?text=3"
+                ],
                 photoList: [
                     {
                         src: "https://picsum.photos/100",
@@ -128,8 +141,10 @@
                     src: "",
                     id: "",
                 },
+                uploadOnlyId: "",
                 photoList: [],
                 fileList: [],
+                uploadOnlyIdList: [],
                 region: [],
                 cascaderNative: [],
                 content: "",

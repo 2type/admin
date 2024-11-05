@@ -13,7 +13,13 @@ export default {
     },
     mounted() {
         const vm = this
-        const editor = new wangEditor(vm.$refs.editor)
+        if (!TA.wangEditor) {
+            var msg = "页面需要引入" + `<` + `script type="module" src="/public/2type/2type.dep.editor.js" ></` +`.script>`
+            alert(msg)
+            console.error(msg)
+            return
+        }
+        const editor = new TA.wangEditor(vm.$refs.editor)
         editor.config.onchange = (newHtml) => {
             vm.editorData = newHtml
             vm.$emit("input", newHtml)

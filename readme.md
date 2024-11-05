@@ -69,9 +69,7 @@
 
 项目中可直接使用 `import` 导入js模块,但要注意一定要在 `<script type="module" >` 标签的起始处, 必须有 `type="module"`.
 
-在线 esm 模块: https://www.skypack.dev/
-
-国内加速镜像: https://esm.2type.cn/
+在线 esm 模块: https://esm.run/
 
 
 ### 最好有一点vue基础
@@ -331,6 +329,13 @@ TA.hook.editor.insertImage = function (res, insert) {
 }
 ```
 
+需要直接存储文件网址可以使用 `only-id="true` 让 `v-model` 的值是,字符串格式`"id"`
+而不是 `{id:"id",src:"src",filename:"filename"}` 格式
+
+```html
+<ta-upload v-model="form.uploadOnlyId" only-id="true" action="/admin/upload/photo" ></ta-upload>
+```
+
 ### ta-upload-list
 
 与 upload 类似,区别是可以上传多个文件
@@ -338,6 +343,7 @@ TA.hook.editor.insertImage = function (res, insert) {
 ```html
 <ta-upload-list v-model="form.photoList" action="/admin/upload/photo" ></ta-upload-list>
 <ta-upload-list v-model="form.fileList" action="/admin/upload/file" ></ta-upload-list>
+<ta-upload-list only-id="true" v-model="form.uploadOnlyIdList" action="/admin/upload/photo" ></ta-upload-list>
 ```
 
 ```js
@@ -349,12 +355,13 @@ TA.hook.editor.insertImage = function (res, insert) {
                 id: "https://picsum.photos/100",
             },
         ],
-            fileList: [
+        fileList: [
             {
                 filename: "abc.csv",
                 id: "some_uuid",
             }
-        ]
+        ],
+        uploadOnlyIdList:[],
     }
 }
 ```
